@@ -39,6 +39,7 @@ namespace DroneWar
             this.Name = "Control_GameSpace";
             this.Size = new System.Drawing.Size(1087, 1008);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Control_GameSpace_Paint);
+            this.Resize += new System.EventHandler(this.Control_GameSpace_Resize);
             this.ResumeLayout(false);
 
         }

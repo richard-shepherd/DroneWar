@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace DroneWar
@@ -46,9 +47,18 @@ namespace DroneWar
         {
             try
             {
+                // We start a new game, and add AIs...
+                var swarmAIs = new List<ISwarmAI>();
+                swarmAIs.Add(new AI_BasicDrones());
+                swarmAIs.Add(new AI_BasicDrones());
+                m_game = new Game(swarmAIs, 100);
 
+                // We set up the game-space to show the swarms, and show the 
+                // intial game state...
+                ctrlGameSpace.SwarmInfos = m_game.SwarmInfos;
+                ctrlGameSpace.show();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logger.log(ex);
             }
@@ -72,6 +82,13 @@ namespace DroneWar
                 // If we get an exception here, we ignore it, as this is the logger(!)
             }
         }
+
+        #endregion
+
+        #region Private data
+
+        // The current game...
+        private Game m_game = null;
 
         #endregion
     }

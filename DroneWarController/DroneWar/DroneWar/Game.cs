@@ -15,6 +15,15 @@ namespace DroneWar
     /// </remarks>
     public class Game
     {
+        #region Properties
+
+        /// <summary>
+        /// Gets the swarm-infos.
+        /// </summary>
+        public List<SwarmInfo> SwarmInfos { get; private set; } = new List<SwarmInfo>();
+
+        #endregion
+
         #region Public methods
 
         /// <summary>
@@ -78,6 +87,9 @@ namespace DroneWar
                 // we set up the swarm's initial position in the game space...
                 setupInitialValues(swarmInfo);
                 setupInitialPositions(swarmInfo, aiIndex);
+
+                // We add the swarm-info to the game...
+                SwarmInfos.Add(swarmInfo);
             }
         }
 
