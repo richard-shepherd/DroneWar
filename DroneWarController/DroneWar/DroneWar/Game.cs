@@ -21,6 +21,9 @@ namespace DroneWar
         {
             m_swarmAIs = swarmAIs;
             m_maxDrones = maxDrones;
+
+            // We set up the swarms into their start-of-game configuration...
+            setupSwarms();
         }
 
         /// <summary>
@@ -28,6 +31,31 @@ namespace DroneWar
         /// </summary>
         public void playOneTurn()
         {
+
+        }
+
+        #endregion
+
+        #region Private functions
+
+        /// <summary>
+        /// Sets up the swarms into their start-of-game configuration.
+        /// </summary><remarks>
+        /// Includes asking each AI to set up its collection of drones, distributing
+        /// abilities between them.
+        /// </remarks>
+        private void setupSwarms()
+        {
+            // We ask each AI to set up its drones. The AIs are given 300 points
+            // multiplied by the number of drones, and can distribute this across
+            // speed, armour and laser strength. 
+            //
+            // So for example, they could give each drone 100 points in each category.
+            // Or they give some drones greater values in some categories and less in
+            // others.
+            //
+            // AIs do not have to create the maximum number of drones. They could choose
+            // to create fewer drones and give them more 'tank-like' abilities.
 
         }
 

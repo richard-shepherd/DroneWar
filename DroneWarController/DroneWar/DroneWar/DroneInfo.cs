@@ -8,9 +8,14 @@
         #region Properties
 
         /// <summary>
-        /// Gets or sets the initial top speed of the drone, at the time it was created.
+        /// Gets or sets the initial speed of the drone, at the time it was created.
         /// </summary>
-        public int InitialTopSpeed { get; set; } = 0;
+        public int InitialSpeed { get; set; } = 0;
+
+        /// <summary>
+        /// Gets or sets the initial health of the drone, at the time it was created.
+        /// </summary>
+        public int InitialHealth { get; set; } = 0;
 
         /// <summary>
         /// Gets or sets the initial armour of the drone, at the time it was created.
@@ -21,6 +26,11 @@
         /// Gets or sets the initial laser strength of the drone, at the time it was created.
         /// </summary>
         public int InitialLaserStrength { get; set; } = 0;
+
+        /// <summary>
+        /// Gets or sets the current health of the drone.
+        /// </summary>
+        public int Health { get; set; } = 0;
 
         /// <summary>
         /// Gets or sets the current armour of the drone.
