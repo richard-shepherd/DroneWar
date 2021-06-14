@@ -43,6 +43,21 @@ namespace DroneWar
         #region Control events
 
         /// <summary>
+        /// Called when the control is resized.
+        /// </summary>
+        private void Control_GameSpace_Resize(object sender, EventArgs e)
+        {
+            try
+            {
+                Invalidate();
+            }
+            catch (Exception ex)
+            {
+                Logger.log(ex);
+            }
+        }
+
+        /// <summary>
         /// Called when the control is repainted.
         /// </summary>
         private void Control_GameSpace_Paint(object sender, PaintEventArgs e)
@@ -93,10 +108,5 @@ namespace DroneWar
         }
 
         #endregion
-
-        private void Control_GameSpace_Resize(object sender, EventArgs e)
-        {
-            Invalidate();
-        }
     }
 }
