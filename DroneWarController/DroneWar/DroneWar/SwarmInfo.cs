@@ -23,7 +23,7 @@ namespace DroneWar
         /// <summary>
         /// Gets info for each drone in the swarm.
         /// </summary>
-        public List<DroneInfo> DroneInfos { get; } = new List<DroneInfo>();
+        public List<DroneInfo> DroneInfos { get; set; } = new List<DroneInfo>();
 
         #endregion
     }

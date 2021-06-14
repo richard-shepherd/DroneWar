@@ -11,9 +11,17 @@ namespace DroneWar
         #region ISwarmAI implementation
 
         /// <summary>
+        /// Returns the AI's name.
+        /// </summary>
+        public string getAIName()
+        {
+            return "BasicDrones";
+        }
+
+        /// <summary>
         /// Sets up the swarm.
         /// </summary>
-        public List<DroneInfo> setupSwarm(int maxDrones, int totalPoints)
+        public List<DroneInfo> setupDroneInfos(int maxDrones, int totalPoints)
         {
             // We allocate equal points to each drone property...
             var pointsPerProperty = totalPoints / (maxDrones * 3);
@@ -23,7 +31,7 @@ namespace DroneWar
             for(var i=0; i<maxDrones; ++i)
             {
                 var droneInfo = new DroneInfo();
-                droneInfo.InitialArmour = pointsPerProperty;
+                droneInfo.InitialArmor = pointsPerProperty;
                 droneInfo.InitialLaserStrength = pointsPerProperty;
                 droneInfo.InitialSpeed = pointsPerProperty;
                 swarm.Add(droneInfo);
