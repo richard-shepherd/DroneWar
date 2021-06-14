@@ -52,7 +52,7 @@ namespace DroneWar
         {
             // We ask each AI to set up its drones. The AIs are given 300 points
             // multiplied by the number of drones, and can distribute this across
-            // speed, armor and laser strength. 
+            // speed, shields and laser strength. 
             //
             // So for example, they could give each drone 100 points in each category.
             // Or they could give some drones greater values in some categories and
@@ -74,8 +74,47 @@ namespace DroneWar
                 swarmInfo.DroneInfos = ai.setupDroneInfos(m_maxDrones, m_totalPoints);
                 validateSwarm(swarmInfo);
 
-                // We set up initial values for properties not specified by the AI...
+                // We set up initial values for properties not specified by the AI, and 
+                // we set up the swarm's initial position in the game space...
                 setupInitialValues(swarmInfo);
+                setupInitialPositions(swarmInfo, aiIndex);
+            }
+        }
+
+        /// <summary>
+        /// Sets up the swarm's intiial position in the game space.
+        /// </summary>
+        private void setupInitialPositions(SwarmInfo swarmInfo, int aiIndex)
+        {
+            // We set up the drones in random positions along the left, right,
+            // top or bottom of the space depending on the AI number...
+            int minX, maxX, minY, maxY;
+            switch(aiIndex)
+            {
+                // AI 0 starts on the left...
+                case 0:
+                    minX = 0;
+                    maxX = Constants.SPACE_SIZE_X / 10;
+                    minY = 0;
+                    maxY = Constants.SPACE_SIZE_Y;
+                    break;
+
+                // AI 1 starts on the right...
+                case 1:
+                    minX = Constants.SPACE_SIZE_X - Constants.SPACE_SIZE_X / 10;
+                    maxX = Constants.SPACE_SIZE_X;
+                    minY = 0;
+                    maxY = Constants.SPACE_SIZE_Y;
+                    break;
+
+                default:
+                    throw new Exception($"Unhandled AI-index: {aiIndex}");
+            }
+
+            foreach(var droneInfo in swarmInfo.DroneInfos)
+            {
+                droneInfo.X = m_rnd.Next(minX, maxX);
+                droneInfo.Y = m_rnd.Next(minY, maxY);
             }
         }
 
@@ -87,7 +126,7 @@ namespace DroneWar
         {
             foreach(var droneInfo in swarmInfo.DroneInfos)
             {
-                droneInfo.Armor = droneInfo.InitialArmor;
+                droneInfo.Shields = droneInfo.InitialShields;
                 droneInfo.Health = Constants.INITIAL_HEALTH;
                 droneInfo.InitialHealth = Constants.INITIAL_HEALTH;
             }
@@ -108,14 +147,14 @@ namespace DroneWar
             }
 
             // We check the total points allocated...
-            var totalPoints = droneInfos.Sum(x => x.InitialArmor + x.InitialLaserStrength + x.InitialSpeed);
+            var totalPoints = droneInfos.Sum(x => x.InitialShields + x.InitialLaserStrength + x.InitialSpeed);
             if(totalPoints > m_totalPoints)
             {
                 throw new Exception($"{swarmInfo.Name} has created allocated too many points ({totalPoints} > {m_totalPoints})");
             }
 
             // We check that no negative points have been allocated...
-            if(droneInfos.Any(x => x.InitialArmor < 0 || x.InitialLaserStrength < 0 || x.InitialSpeed < 0))
+            if(droneInfos.Any(x => x.InitialShields < 0 || x.InitialLaserStrength < 0 || x.InitialSpeed < 0))
             {
                 throw new Exception($"{swarmInfo.Name} has allocated negative values");
             }
@@ -137,6 +176,9 @@ namespace DroneWar
 
         // Colors to assign to AIs...
         private readonly List<Color> m_swarmColors = new List<Color> { Color.Red, Color.Blue, Color.Green, Color.Yellow };
+
+        // Generates random values - such as the intial positions of drones...
+        private readonly Random m_rnd = new Random();
 
         #endregion
     }

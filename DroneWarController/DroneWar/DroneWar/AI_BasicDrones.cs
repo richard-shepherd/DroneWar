@@ -31,7 +31,7 @@ namespace DroneWar
             for(var i=0; i<maxDrones; ++i)
             {
                 var droneInfo = new DroneInfo();
-                droneInfo.InitialArmor = pointsPerProperty;
+                droneInfo.InitialShields = pointsPerProperty;
                 droneInfo.InitialLaserStrength = pointsPerProperty;
                 droneInfo.InitialSpeed = pointsPerProperty;
                 swarm.Add(droneInfo);

@@ -1,7 +1,7 @@
 ﻿namespace DroneWar
 {
     /// <summary>
-    /// Info about one drone: speed, armor, laser etc.
+    /// Info about one drone: speed, shields, laser etc.
     /// </summary>
     public class DroneInfo
     {
@@ -18,9 +18,9 @@
         public int InitialHealth { get; set; } = 0;
 
         /// <summary>
-        /// Gets or sets the initial armor of the drone, at the time it was created.
+        /// Gets or sets the initial shields of the drone, at the time it was created.
         /// </summary>
-        public int InitialArmor { get; set; } = 0;
+        public int InitialShields { get; set; } = 0;
 
         /// <summary>
         /// Gets or sets the initial laser strength of the drone, at the time it was created.
@@ -33,9 +33,9 @@
         public int Health { get; set; } = 0;
 
         /// <summary>
-        /// Gets or sets the current armor of the drone.
+        /// Gets or sets the current shields of the drone.
         /// </summary>
-        public int Armor { get; set; } = 0;
+        public int Shields { get; set; } = 0;
 
         /// <summary>
         /// Gets or sets the x-coordinate of the drone.

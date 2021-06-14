@@ -22,7 +22,7 @@ namespace DroneWar
         /// 
         /// For each drone you should set:
         /// - InitialSpeed
-        /// - IntialArmor
+        /// - IntialShields
         /// - InitialLaserStrength
         /// 
         /// You can set these to any values you like, but you cannot exceed
@@ -33,9 +33,9 @@ namespace DroneWar
         /// - maxDrones = 100
         /// - points    = 30000
         /// 
-        /// Swarm: 100 drones x (speed=100, armor=100, laser=100)
+        /// Swarm: 100 drones x (speed=100, shields=100, laser=100)
         /// OR
-        /// Swarm: 50 drones x  (speed=100, armor=200, laser=300)
+        /// Swarm: 50 drones x  (speed=100, shields=200, laser=300)
         /// 
         /// You can mix and match drones as you like, as long as the total points is
         /// no greater than the totalPoints provided. You do not need to create all drones
