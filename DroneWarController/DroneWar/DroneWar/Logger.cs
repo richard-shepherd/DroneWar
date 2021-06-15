@@ -34,7 +34,7 @@ namespace DroneWar
         /// </summary>
         public static void log(Exception ex)
         {
-            log(ex.Message);
+            log($"{ex.Message}: {ex.StackTrace}");
         }
 
         /// <summary>

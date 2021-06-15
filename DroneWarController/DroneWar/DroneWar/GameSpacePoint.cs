@@ -1,4 +1,6 @@
-﻿namespace DroneWar
+﻿using System;
+
+namespace DroneWar
 {
     /// <summary>
     /// Represents a point in the game space.
@@ -26,6 +28,43 @@
         {
             get { return m_y; }
             set { setY(value); }
+        }
+
+        #endregion
+
+        #region Public methods
+
+        /// <summary>
+        /// Returns a new GameSpacePoint which is the specified distance away from this point 
+        /// in the direction of the other point specified.
+        /// 
+        /// If the distance would take us past the other point, then the other point is returned.
+        /// </summary>
+        public GameSpacePoint moveTowards(GameSpacePoint other, int distance)
+        {
+            //distance *= 10;
+
+            // We find the distance to the other point...
+            var diffX = (double)(other.X - X);
+            var diffY = (double)(other.Y - Y);
+            var diffXSquared = diffX * diffX;
+            var diffYSquared = diffY * diffY;
+            var distanceToOther = Math.Sqrt(diffXSquared + diffYSquared);
+
+            // If the distance specified takes us past the point, we return it...
+            if(distance > distanceToOther)
+            {
+                return other;
+            }
+
+            // We are moving the distance along the line...
+            var newPoint = new GameSpacePoint();
+            var ratio = distance / distanceToOther;
+            var oneMinusRatio = 1.0 - ratio;
+            newPoint.X = (int)(oneMinusRatio * X + ratio * other.X);
+            newPoint.Y = (int)(oneMinusRatio * Y + ratio * other.Y);
+
+            return newPoint;
         }
 
         #endregion

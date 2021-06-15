@@ -18,9 +18,9 @@ namespace DroneWar
         #region Properties
 
         /// <summary>
-        /// Gets the swarm-infos.
+        /// Gets the game state.
         /// </summary>
-        public List<SwarmInfo> SwarmInfos { get; private set; } = new List<SwarmInfo>();
+        public GameState GameState => m_gameState;
 
         #endregion
 
@@ -44,12 +44,52 @@ namespace DroneWar
         /// </summary>
         public void playOneTurn()
         {
-
+            moveDrones();
         }
 
         #endregion
 
         #region Private functions
+
+        /// <summary>
+        /// Requests movements from each AI and applies them to the drones.
+        /// </summary>
+        private void moveDrones()
+        {
+            // We get requested movements from each AI...
+            var movementRequestsPerIndex = new Dictionary<int, List<MovementRequest>>(); 
+            var numAIs = m_swarmAIs.Count;
+            for(var aiIndex=0; aiIndex < numAIs; ++aiIndex)
+            {
+                var swarmAI = m_swarmAIs[aiIndex];
+                movementRequestsPerIndex[aiIndex] = swarmAI.moveDrones(m_gameState, aiIndex);
+            }
+
+            // We apply the movements to the drones. 
+            // Note: This is done as a separate phase so that the same game state is passed
+            //       to each AI above.
+            foreach(var pair in movementRequestsPerIndex)
+            {
+                var aiIndex = pair.Key;
+                var movementRequests = pair.Value;
+                var drones = m_gameState.SwarmInfos[aiIndex].DroneInfos;
+                applyRequestedMovements(movementRequests, drones);
+            }
+        }
+
+        /// <summary>
+        /// Applies the requested movements to the drones.
+        /// </summary>
+        private void applyRequestedMovements(List<MovementRequest> movementRequests, List<DroneInfo> drones)
+        {
+            // TODO: Validate the movement requests
+            // eg, make sure that the same drone is not specified multiple times
+            foreach(var movementRequest in movementRequests)
+            {
+                var drone = drones[movementRequest.DroneIndex];
+                drone.Position = drone.Position.moveTowards(movementRequest.Target, drone.Speed);
+            }
+        }
 
         /// <summary>
         /// Sets up the swarms into their start-of-game configuration.
@@ -89,7 +129,7 @@ namespace DroneWar
                 setupInitialPositions(swarmInfo, aiIndex);
 
                 // We add the swarm-info to the game...
-                SwarmInfos.Add(swarmInfo);
+                m_gameState.SwarmInfos.Add(swarmInfo);
             }
         }
 
@@ -138,9 +178,11 @@ namespace DroneWar
         {
             foreach(var droneInfo in swarmInfo.DroneInfos)
             {
-                droneInfo.Shields = droneInfo.InitialShields;
-                droneInfo.Health = Constants.INITIAL_HEALTH;
                 droneInfo.InitialHealth = Constants.INITIAL_HEALTH;
+                droneInfo.Health = droneInfo.InitialHealth;
+                droneInfo.LaserStrength = droneInfo.InitialLaserStrength;
+                droneInfo.Shields = droneInfo.InitialShields;
+                droneInfo.Speed = droneInfo.InitialSpeed;
             }
         }
 

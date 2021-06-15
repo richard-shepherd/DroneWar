@@ -55,10 +55,34 @@ namespace DroneWar
 
                 // We set up the game-space to show the swarms, and show the 
                 // intial game state...
-                ctrlGameSpace.SwarmInfos = m_game.SwarmInfos;
+                ctrlGameSpace.SwarmInfos = m_game.GameState.SwarmInfos;
                 ctrlGameSpace.show();
             }
             catch (Exception ex)
+            {
+                Logger.log(ex);
+            }
+        }
+
+
+        /// <summary>
+        /// Called when the graphics-refersh timer ticks.
+        /// </summary>
+        private void ctrlGraphicsRefreshTimer_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                // If there is no active game, there is nothing to do...
+                if(m_game == null)
+                {
+                    return;
+                }
+
+                // For the moment, this is running the game loop...
+                m_game.playOneTurn();
+                ctrlGameSpace.show();
+            }
+            catch(Exception ex)
             {
                 Logger.log(ex);
             }

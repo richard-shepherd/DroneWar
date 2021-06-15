@@ -30,6 +30,11 @@ namespace DroneWar
         public int InitialLaserStrength { get; set; } = 0;
 
         /// <summary>
+        /// Gets or sets the current speed of the drone.
+        /// </summary>
+        public int Speed { get; set; } = 0;
+
+        /// <summary>
         /// Gets or sets the current health of the drone.
         /// </summary>
         public int Health { get; set; } = 0;
@@ -40,9 +45,14 @@ namespace DroneWar
         public int Shields { get; set; } = 0;
 
         /// <summary>
+        /// Gets or sets the current laser strength of the drone.
+        /// </summary>
+        public int LaserStrength { get; set; } = 0;
+
+        /// <summary>
         /// Gets the position of the drone in game-space.
         /// </summary>
-        public GameSpacePoint Position { get; } = new GameSpacePoint();
+        public GameSpacePoint Position { get; set; } = new GameSpacePoint();
 
         #endregion
     }

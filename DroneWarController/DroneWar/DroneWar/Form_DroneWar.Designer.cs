@@ -29,12 +29,14 @@ namespace DroneWar
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_DroneWar));
             this.ctrlGroupBox_Logs = new System.Windows.Forms.GroupBox();
             this.ctrlLogs = new System.Windows.Forms.ListBox();
             this.ctrlGroupBox_Space = new System.Windows.Forms.GroupBox();
             this.ctrlGameSpace = new DroneWar.Control_GameSpace();
             this.ctrlStartGame = new System.Windows.Forms.Button();
+            this.ctrlGraphicsRefreshTimer = new System.Windows.Forms.Timer(this.components);
             this.ctrlGroupBox_Logs.SuspendLayout();
             this.ctrlGroupBox_Space.SuspendLayout();
             this.SuspendLayout();
@@ -95,6 +97,12 @@ namespace DroneWar
             this.ctrlStartGame.UseVisualStyleBackColor = true;
             this.ctrlStartGame.Click += new System.EventHandler(this.ctrlStartGame_Click);
             // 
+            // ctrlGraphicsRefreshTimer
+            // 
+            this.ctrlGraphicsRefreshTimer.Enabled = true;
+            this.ctrlGraphicsRefreshTimer.Interval = 1;
+            this.ctrlGraphicsRefreshTimer.Tick += new System.EventHandler(this.ctrlGraphicsRefreshTimer_Tick);
+            // 
             // Form_DroneWar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 41F);
@@ -119,6 +127,7 @@ namespace DroneWar
         private System.Windows.Forms.GroupBox ctrlGroupBox_Space;
         private Control_GameSpace ctrlGameSpace;
         private System.Windows.Forms.Button ctrlStartGame;
+        private System.Windows.Forms.Timer ctrlGraphicsRefreshTimer;
     }
 }
 

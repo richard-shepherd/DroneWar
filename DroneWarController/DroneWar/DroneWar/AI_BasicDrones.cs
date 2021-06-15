@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DroneWar
 {
@@ -82,12 +83,24 @@ namespace DroneWar
                 var movementRequest = new MovementRequest();
                 movementRequest.DroneIndex = droneIndex;
                 movementRequest.Target = enemyDrone.Position;
+
+                // We add a bit of random jiggle to the target direction,
+                // to make it look more interesting...
+                movementRequest.Target.X += m_rnd.Next(-50000, 50000);
+                movementRequest.Target.Y += m_rnd.Next(-50000, 50000);
+
                 movementRequests.Add(movementRequest);
             }
 
             return movementRequests;
         }
 
+        #endregion
+
+        #region Private data
+
+        // Randomness...
+        private Random m_rnd = new Random();
 
         #endregion
     }
