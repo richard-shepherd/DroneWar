@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace DroneWar
 {
@@ -32,9 +33,11 @@ namespace DroneWar
             for(var i=0; i<maxDrones; ++i)
             {
                 var droneInfo = new DroneInfo();
-                droneInfo.InitialShields = pointsPerProperty;
+
+                var offset = m_rnd.Next(-50, 50);
+                droneInfo.InitialShields = pointsPerProperty + offset;
                 droneInfo.InitialLaserStrength = pointsPerProperty;
-                droneInfo.InitialSpeed = pointsPerProperty;
+                droneInfo.InitialSpeed = pointsPerProperty - offset;
                 swarm.Add(droneInfo);
             }
 
@@ -68,7 +71,23 @@ namespace DroneWar
             var ourSwarm = swarmInfos[swarmIndex];
             var ourDrones = ourSwarm.DroneInfos;
             var numDrones = ourDrones.Count;
-            for(var droneIndex=0; droneIndex<numDrones; ++droneIndex)
+
+            --m_offsetCount;
+            if (m_offsetCount <= 0)
+            {
+                var offsetAmount = 200000;
+
+                for (var i = 0; i <numDrones; ++i)
+                {
+                    m_offsets[i] = new Point(m_rnd.Next(-1 * offsetAmount, offsetAmount), m_rnd.Next(-1 * offsetAmount, offsetAmount)); ;
+                }
+
+                m_offsetCount = 5;
+            }
+
+
+
+            for (var droneIndex=0; droneIndex<numDrones; ++droneIndex)
             {
                 // We find the index of the enemy drone (wrapping round the collection
                 // of enemies if we have more drones than they do)...
@@ -82,12 +101,13 @@ namespace DroneWar
                 var enemyDrone = enemyDrones[enemyDroneIndex];
                 var movementRequest = new MovementRequest();
                 movementRequest.DroneIndex = droneIndex;
-                movementRequest.Target = enemyDrone.Position;
+                movementRequest.Target = enemyDrone.Position.Clone();
 
                 // We add a bit of random jiggle to the target direction,
                 // to make it look more interesting...
-                movementRequest.Target.X += m_rnd.Next(-50000, 50000);
-                movementRequest.Target.Y += m_rnd.Next(-50000, 50000);
+                var offset = m_offsets[droneIndex];
+                movementRequest.Target.X += offset.X;
+                movementRequest.Target.Y += offset.Y;
 
                 movementRequests.Add(movementRequest);
             }
@@ -101,6 +121,9 @@ namespace DroneWar
 
         // Randomness...
         private Random m_rnd = new Random();
+
+        private readonly Dictionary<int, Point> m_offsets = new Dictionary<int, Point>();
+        private int m_offsetCount = 0;
 
         #endregion
     }

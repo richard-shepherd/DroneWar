@@ -35,6 +35,33 @@ namespace DroneWar
         #region Public methods
 
         /// <summary>
+        /// Constructor.
+        /// </summary>
+        public GameSpacePoint()
+        {
+        }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        public GameSpacePoint(int x, int y)
+        {
+            X = x;
+            Y = y;
+        }
+
+        /// <summary>
+        /// Returns a clone of the game space point.
+        /// </summary>
+        internal GameSpacePoint Clone()
+        {
+            var clone = new GameSpacePoint();
+            clone.X = X;
+            clone.Y = Y;
+            return clone;
+        }
+
+        /// <summary>
         /// Returns a new GameSpacePoint which is the specified distance away from this point 
         /// in the direction of the target point specified.
         /// 
@@ -42,8 +69,6 @@ namespace DroneWar
         /// </summary>
         public GameSpacePoint moveTowards(GameSpacePoint target, int distance)
         {
-            distance = 1;
-
             // We find the distance to the other point...
             var diffX = (double)(target.X - X);
             var diffY = (double)(target.Y - Y);
@@ -61,10 +86,10 @@ namespace DroneWar
             var newPoint = new GameSpacePoint();
             var ratio = distance / distanceToOther;
             var oneMinusRatio = 1.0 - ratio;
-            //newPoint.X = (int)(oneMinusRatio * X + ratio * target.X);
-            //newPoint.Y = (int)(oneMinusRatio * Y + ratio * target.Y);
-            newPoint.X = (int)(X + ratio * diffX);
-            newPoint.Y = (int)(Y + ratio * diffY);
+            newPoint.X = (int)(oneMinusRatio * X + ratio * target.X);
+            newPoint.Y = (int)(oneMinusRatio * Y + ratio * target.Y);
+            //newPoint.X = (int)(X + ratio * diffX);
+            //newPoint.Y = (int)(Y + ratio * diffY);
 
             return newPoint;
         }

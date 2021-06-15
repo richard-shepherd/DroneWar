@@ -100,7 +100,7 @@ namespace DroneWar
             // ctrlGraphicsRefreshTimer
             // 
             this.ctrlGraphicsRefreshTimer.Enabled = true;
-            this.ctrlGraphicsRefreshTimer.Interval = 1000;
+            this.ctrlGraphicsRefreshTimer.Interval = 1;
             this.ctrlGraphicsRefreshTimer.Tick += new System.EventHandler(this.ctrlGraphicsRefreshTimer_Tick);
             // 
             // Form_DroneWar
@@ -111,6 +111,7 @@ namespace DroneWar
             this.Controls.Add(this.ctrlStartGame);
             this.Controls.Add(this.ctrlGroupBox_Space);
             this.Controls.Add(this.ctrlGroupBox_Logs);
+            this.DoubleBuffered = true;
             this.Name = "Form_DroneWar";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form_DroneWar_Load);

@@ -93,7 +93,9 @@ namespace DroneWar
             foreach(var droneInfo in swarmInfo.DroneInfos)
             {
                 var screenPosition = toScreenPoint(droneInfo.Position);
-                graphics.FillEllipse(brush, screenPosition.X - 5, screenPosition.Y - 5, 10, 10);
+                var size = droneInfo.Shields / 10;
+                var offset = size / 2;
+                graphics.FillEllipse(brush, screenPosition.X-offset, screenPosition.Y-offset, size, size);
             }
         }
 

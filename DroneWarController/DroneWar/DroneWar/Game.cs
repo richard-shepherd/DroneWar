@@ -87,7 +87,8 @@ namespace DroneWar
             foreach(var movementRequest in movementRequests)
             {
                 var drone = drones[movementRequest.DroneIndex];
-                drone.Position = drone.Position.moveTowards(movementRequest.Target, drone.Speed);
+                var speed = drone.Speed * 50;
+                drone.Position = drone.Position.moveTowards(movementRequest.Target, speed);
             }
         }
 
