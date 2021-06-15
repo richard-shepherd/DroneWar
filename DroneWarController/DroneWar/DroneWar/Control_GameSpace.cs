@@ -92,7 +92,7 @@ namespace DroneWar
             var brush = new SolidBrush(swarmInfo.Color);
             foreach(var droneInfo in swarmInfo.DroneInfos)
             {
-                var screenPosition = toScreenPoint(droneInfo.X, droneInfo.Y);
+                var screenPosition = toScreenPoint(droneInfo.Position);
                 graphics.FillEllipse(brush, screenPosition.X - 5, screenPosition.Y - 5, 10, 10);
             }
         }
@@ -100,10 +100,10 @@ namespace DroneWar
         /// <summary>
         /// Converts a point in game space to a point on the control.
         /// </summary>
-        private Point toScreenPoint(int spaceX, int spaceY)
+        private Point toScreenPoint(GameSpacePoint gameSpacePoint)
         {
-            var x = ((double)spaceX / Constants.SPACE_SIZE_X) * Width;
-            var y = ((double)spaceY  / Constants.SPACE_SIZE_Y) * Height;
+            var x = ((double)gameSpacePoint.X / Constants.SPACE_SIZE_X) * Width;
+            var y = ((double)gameSpacePoint.Y  / Constants.SPACE_SIZE_Y) * Height;
             return new Point((int)x, (int)y);
         }
 

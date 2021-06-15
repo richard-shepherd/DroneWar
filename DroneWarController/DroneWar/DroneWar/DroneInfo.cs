@@ -1,4 +1,6 @@
-﻿namespace DroneWar
+﻿using System.Drawing;
+
+namespace DroneWar
 {
     /// <summary>
     /// Info about one drone: speed, shields, laser etc.
@@ -38,14 +40,9 @@
         public int Shields { get; set; } = 0;
 
         /// <summary>
-        /// Gets or sets the x-coordinate of the drone.
+        /// Gets the position of the drone in game-space.
         /// </summary>
-        public int X { get; set; } = 0;
-
-        /// <summary>
-        /// Gets or sets the y-coordinate of the drone.
-        /// </summary>
-        public int Y { get; set; } = 0;
+        public GameSpacePoint Position { get; } = new GameSpacePoint();
 
         #endregion
     }

@@ -125,8 +125,8 @@ namespace DroneWar
 
             foreach(var droneInfo in swarmInfo.DroneInfos)
             {
-                droneInfo.X = m_rnd.Next(minX, maxX);
-                droneInfo.Y = m_rnd.Next(minY, maxY);
+                droneInfo.Position.X = m_rnd.Next(minX, maxX);
+                droneInfo.Position.Y = m_rnd.Next(minY, maxY);
             }
         }
 

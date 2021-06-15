@@ -45,5 +45,18 @@ namespace DroneWar
         /// You cannot create drones with negative values in any category.
         /// </remarks>
         public List<DroneInfo> setupDroneInfos(int maxDrones, int totalPoints);
+
+        /// <summary>
+        /// Called during the movement phase of a turn, allowing you to move your drones.
+        /// </summary><remarks>
+        /// You are passed:
+        /// - The complete game state, including information about your drones and
+        ///   all other players' drones.
+        /// - The index of your swarm in the game-state's SwarmInfos list.
+        /// 
+        /// You return a MovementRequest for each drone which you want to move during
+        /// this turn. See comments on the MovementRequest class for more details.
+        /// </remarks>
+        public List<MovementRequest> moveDrones(GameState gameState, int swarmIndex);
     }
 }
