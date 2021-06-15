@@ -1,0 +1,179 @@
+Aim
+---
+- To have something exciting to watch
+  - So it needs to play fast
+  - Like the drone war in Universal Paperclips
+
+
+
+Ideas
+-----
+- You start by being given n drone-points
+
+- Each drone point can be an individual drone
+  or you can create larger drones by combining them
+
+- At each turn, each AI is told the game info:
+  - The position and size of each drone
+  - The health of each drone (?)
+
+- Larger drones move slower than smaller ones
+
+
+
+How should firing at enemies work?
+----------------------------------
+- Simple idea:
+  - You choose an enemy to fire at, and you always hit them
+  - The amount of damage is based on the strength of your ship
+    (smaller ships do less damage?)
+  - The amount of damage works on the inverse square of the distance
+
+- Problems with the simple idea:
+  - It makes blocking redundant
+  - It makes dodging redundant
+
+- Advantages of the simple idea:
+  - It is simple to code (for me and for AIs)
+  - It gives an advantage to getting up close to enemies
+    - There is an interesting trade-off between firing early
+      and waiting to get close before firing
+
+- How often can you fire?
+  - Should you be able to fire at every turn?
+  - Maybe there should be a recharge time for firing?
+    - This would lead to the trade-off between firing early and
+      waiting until you are closer
+
+
+How do large and small drones work?
+-----------------------------------
+- Say you start with 100 drone points. You can have:
+  - 100 small drones
+  - 25 x 4-size drones
+  - 1 x 100-size drone
+  - etc
+
+- It might be tricky to get the balance right between large and small drones
+  - To stop there being an obvious advantage to one or the other
+
+- That said, maybe that doesn't really matter too much as people
+  will just opt for one or the other
+  - But would have been a waste of time coding in the engine
+
+- Should a 4-drone be able to take 4 x the damage of a 1-drone?
+  - Should it be more than 4x? (ie, more tank-like)
+  - Should it be less than 4x? (ie, diminishing returns to size)
+
+- What damage does a 4-drone deal?
+  - Does it have only one gun? (but a more powerful one, eg 4x power)
+  - Does it have multiple guns? (if so, does it have 4, or 2?)
+
+- How fast does a 4-drone move?
+  - Maybe 1/4 speed of a 1-drone
+
+- QUESTION: Do we even want n-drones?
+  - Would it be simpler (and maybe better) to just have 1-drones?
+  - Perhaps good to start with 1-drones and see how it goes
+
+
+Thought about large drones
+--------------------------
+- Can it ever work to have a large drone?
+  - If there is any downside to them
+
+- For example one 20-drone vs twenty 1-drones
+
+- You could alternatively just have the twenty 1-drones, and move
+  them all around as if they were a single drone
+
+- If larger drones are slower (for example), then why would you ever have one?
+
+- So larger drones need to have some advantage to offset this
+
+
+What is the aim of the game?
+----------------------------
+- To kill all the opponent's drones?
+
+- To capture an opponent's position?
+
+- To capture / kill the opponent's queen?
+
+
+Optional parameters for drones
+------------------------------
+- IDEA: You can choose parameters for your drones:
+  - Speed
+  - Armour
+  - LaserStrength
+
+- It could be that you have a total budget, and you can divide it how you like
+  between the drones you create
+
+- For example:
+  - A standard drone might have:
+  - Speed =  100
+  - Armour = 100
+  - Laser =  100
+
+- So you get 300 points per drone
+
+- So in a game with 100 drones (per team), you get a total of 30000 points
+
+- You can divide this how you like
+
+- Different drones do not have to be the same
+  - And you do not have to create the maximum number of drones
+
+- So in a game with max 100 drones, you could create one drone with
+  - Speed =  10000
+  - Armour = 10000
+  - Laser =  10000
+
+
+Self-repair?
+------------
+- Should drones self-repair over time?
+
+- If they are not attacked, maybe they regenerate armour back up to the initial value?
+
+
+Starting configuration
+----------------------
+- It would be good to have drones start in some sort of intersting configuration
+
+- Better than that they all start in one spot
+  - This could look rather boring - especially if they all just go directly for
+    each other. Then you might only see one dot!
+
+- Maybe there could be a number of starting configurations:
+  - Lined up on the left and right
+  - V-formation left and right
+  - Randomly distributed
+
+
+How should moving work?
+-----------------------
+- It could be that drones can move in any dirction at any time.
+
+- Or it could be that they move like an Asteroids spaceship
+  - ie, that you thrust in a direction, and it is added to your
+        current vector
+
+- If we use the asteroids-style movement, velocity could increase beyond
+  the TopSpeed
+  - In fact, this should be renamed to MaxThrust in this case.
+
+- If we use the asteroids-style movement, it could be that controlling velocity
+  becomes rather hard
+  - So there could be an action in a turn for FULL-STOP
+  - This would take the whole turn (though you could still fire)
+
+- Not sure if the asteroids-style movement is a cool idea
+  - Or whether it just makes things unnecessarily complicated for AIs
+
+
+
+
+  
