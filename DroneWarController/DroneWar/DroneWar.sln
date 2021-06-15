@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DroneWar", "DroneWar\DroneWar.csproj", "{8BDDCD6C-577D-4DD0-8A9E-69FA04620166}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DroneWar", "DroneWar\DroneWar.csproj", "{8BDDCD6C-577D-4DD0-8A9E-69FA04620166}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notes", "Notes", "{802C1C0C-577F-49C6-A2F2-CF9172B5B45F}"
+	ProjectSection(SolutionItems) = preProject
+		..\Notes\notes.txt = ..\Notes\notes.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

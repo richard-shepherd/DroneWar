@@ -24,7 +24,7 @@
         /// <summary>
         /// Gets the target point towards which you the drone should move.
         /// </summary>
-        public GameSpacePoint Target { get; } = new GameSpacePoint();
+        public GameSpacePoint Target { get; set; } = new GameSpacePoint();
 
         #endregion
     }

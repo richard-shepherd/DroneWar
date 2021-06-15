@@ -40,6 +40,55 @@ namespace DroneWar
             return swarm;
         }
 
+        /// <summary>
+        /// Moves the drones.
+        /// </summary><remarks>
+        /// Each drone targets the drone with the corresponding index in the enemy swarm.
+        /// </remarks>
+        public List<MovementRequest> moveDrones(GameState gameState, int swarmIndex)
+        {
+            var movementRequests = new List<MovementRequest>();
+
+            // We find the index of the enemy swarm. If there are more than two players,
+            // we always target the 'next' swarm...
+            var swarmInfos = gameState.SwarmInfos;
+            var enemyIndex = swarmIndex + 1;
+            if(enemyIndex >= swarmInfos.Count)
+            {
+                enemyIndex = 0;
+            }
+            var enemySwarm = swarmInfos[enemyIndex];
+
+            // We find the collection of enemy drones...
+            var enemyDrones = enemySwarm.DroneInfos;
+            var numEnemyDrones = enemyDrones.Count;
+
+            // We move each of our drones towards the corresponding enemy drone...
+            var ourSwarm = swarmInfos[swarmIndex];
+            var ourDrones = ourSwarm.DroneInfos;
+            var numDrones = ourDrones.Count;
+            for(var droneIndex=0; droneIndex<numDrones; ++droneIndex)
+            {
+                // We find the index of the enemy drone (wrapping round the collection
+                // of enemies if we have more drones than they do)...
+                var enemyDroneIndex = droneIndex;
+                while(enemyDroneIndex >= numEnemyDrones)
+                {
+                    enemyDroneIndex -= numEnemyDrones;
+                }
+
+                // We move towards the enemy...
+                var enemyDrone = enemyDrones[enemyDroneIndex];
+                var movementRequest = new MovementRequest();
+                movementRequest.DroneIndex = droneIndex;
+                movementRequest.Target = enemyDrone.Position;
+                movementRequests.Add(movementRequest);
+            }
+
+            return movementRequests;
+        }
+
+
         #endregion
     }
 }

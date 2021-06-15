@@ -180,5 +180,9 @@ Powerups
   - Each drone gets one chance to randomly teleport
 
 
-
+Is laser stength unbalanced?
+----------------------------
+- Is it too powerful if you assign shield=0, laser=200?
+  - Could you kill enemies before they can kill you?
+  - Or does this all come out OK?
   
