@@ -100,7 +100,7 @@ namespace DroneWar
             // ctrlGraphicsRefreshTimer
             // 
             this.ctrlGraphicsRefreshTimer.Enabled = true;
-            this.ctrlGraphicsRefreshTimer.Interval = 1;
+            this.ctrlGraphicsRefreshTimer.Interval = 1000;
             this.ctrlGraphicsRefreshTimer.Tick += new System.EventHandler(this.ctrlGraphicsRefreshTimer_Tick);
             // 
             // Form_DroneWar
