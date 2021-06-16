@@ -34,9 +34,35 @@ namespace DroneWar
 
         #region Public types
 
+        /// <summary>
+        /// Holds the distance between two points, plus relate values.
+        /// </summary>
         public class DistanceInfo
         {
+            /// <summary>
+            /// Gets or sets the difference in X values.
+            /// </summary>
             public double DiffX { get; set; }
+
+            /// <summary>
+            /// Gets or sets the difference in Y values.
+            /// </summary>
+            public double DiffY { get; set; }
+
+            /// <summary>
+            /// Gets or sets the square of the difference in X values.
+            /// </summary>
+            public double DiffXSquared { get; set; }
+
+            /// <summary>
+            /// Gets or sets the square of the difference in X values.
+            /// </summary>
+            public double DiffYSquared { get; set; }
+
+            /// <summary>
+            /// Gets or sets the distance between the two points.
+            /// </summary>
+            public double Distance { get; set; }
         }
 
         #endregion
@@ -71,31 +97,42 @@ namespace DroneWar
         }
 
         /// <summary>
+        /// Returns the distance to the other point, plus related info.
+        /// </summary>
+        public DistanceInfo distanceTo(GameSpacePoint other)
+        {
+            var distanceInfo = new DistanceInfo();
+            distanceInfo.DiffX = other.X - X;
+            distanceInfo.DiffY = other.Y - Y;
+            distanceInfo.DiffXSquared = distanceInfo.DiffX * distanceInfo.DiffX;
+            distanceInfo.DiffYSquared = distanceInfo.DiffY * distanceInfo.DiffY;
+            distanceInfo.Distance = Math.Sqrt(distanceInfo.DiffXSquared + distanceInfo.DiffYSquared);
+            return distanceInfo;
+
+        }
+
+        /// <summary>
         /// Returns a new GameSpacePoint which is the specified distance away from this point 
         /// in the direction of the target point specified.
         /// 
         /// If the distance would take us past the target point, then the target point is returned.
         /// </summary>
-        public GameSpacePoint moveTowards(GameSpacePoint target, int distance)
+        public GameSpacePoint moveTowards(GameSpacePoint target, int distanceToMove)
         {
             // We find the distance to the other point...
-            var diffX = target.X - X;
-            var diffY = target.Y - Y;
-            var diffXSquared = diffX * diffX;
-            var diffYSquared = diffY * diffY;
-            var distanceToOther = Math.Sqrt(diffXSquared + diffYSquared);
+            var distanceToTarget = distanceTo(target);
 
             // If the distance specified takes us past the point, we return it...
-            if(distance > distanceToOther)
+            if(distanceToMove > distanceToTarget.Distance)
             {
                 return target;
             }
 
             // We are moving the distance along the line...
             var newPoint = new GameSpacePoint();
-            var ratio = distance / distanceToOther;
-            newPoint.X = X + ratio * diffX;
-            newPoint.Y = Y + ratio * diffY;
+            var ratio = distanceToMove / distanceToTarget.Distance;
+            newPoint.X = X + ratio * distanceToTarget.DiffX;
+            newPoint.Y = Y + ratio * distanceToTarget.DiffY;
 
             return newPoint;
         }
