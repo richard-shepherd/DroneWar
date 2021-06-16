@@ -141,20 +141,20 @@ namespace DroneWar
         {
             // We set up the drones in random positions along the left, right,
             // top or bottom of the space depending on the AI number...
-            int minX, maxX, minY, maxY;
+            double minX, maxX, minY, maxY;
             switch(aiIndex)
             {
                 // AI 0 starts on the left...
                 case 0:
                     minX = 0;
-                    maxX = Constants.SPACE_SIZE_X / 10;
+                    maxX = Constants.SPACE_SIZE_X / 10.0;
                     minY = 0;
                     maxY = Constants.SPACE_SIZE_Y;
                     break;
 
                 // AI 1 starts on the right...
                 case 1:
-                    minX = Constants.SPACE_SIZE_X - Constants.SPACE_SIZE_X / 10;
+                    minX = Constants.SPACE_SIZE_X - Constants.SPACE_SIZE_X / 10.0;
                     maxX = Constants.SPACE_SIZE_X;
                     minY = 0;
                     maxY = Constants.SPACE_SIZE_Y;
@@ -166,8 +166,8 @@ namespace DroneWar
 
             foreach(var droneInfo in swarmInfo.DroneInfos)
             {
-                droneInfo.Position.X = m_rnd.Next(minX, maxX);
-                droneInfo.Position.Y = m_rnd.Next(minY, maxY);
+                droneInfo.Position.X = Utils.rnd(minX, maxX);
+                droneInfo.Position.Y = Utils.rnd(minY, maxY);
             }
         }
 

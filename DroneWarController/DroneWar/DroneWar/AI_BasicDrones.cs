@@ -75,14 +75,14 @@ namespace DroneWar
             --m_offsetCount;
             if (m_offsetCount <= 0)
             {
-                var offsetAmount = 200000;
+                var offsetAmount = m_rnd.Next(0, 100000);
 
                 for (var i = 0; i <numDrones; ++i)
                 {
                     m_offsets[i] = new Point(m_rnd.Next(-1 * offsetAmount, offsetAmount), m_rnd.Next(-1 * offsetAmount, offsetAmount)); ;
                 }
 
-                m_offsetCount = 5;
+                m_offsetCount = m_rnd.Next(20, 200);
             }
 
 
@@ -91,7 +91,7 @@ namespace DroneWar
             {
                 // We find the index of the enemy drone (wrapping round the collection
                 // of enemies if we have more drones than they do)...
-                var enemyDroneIndex = droneIndex;
+                var enemyDroneIndex = droneIndex + 1;
                 while(enemyDroneIndex >= numEnemyDrones)
                 {
                     enemyDroneIndex -= numEnemyDrones;

@@ -15,7 +15,7 @@ namespace DroneWar
         /// <summary>
         /// Gets or sets the X coordinate.
         /// </summary>
-        public int X
+        public double X
         {
             get { return m_x; }
             set { setX(value); }
@@ -24,10 +24,19 @@ namespace DroneWar
         /// <summary>
         /// Gets or sets the Y coordinate.
         /// </summary>
-        public int Y
+        public double Y
         {
             get { return m_y; }
             set { setY(value); }
+        }
+
+        #endregion
+
+        #region Public types
+
+        public class DistanceInfo
+        {
+            public double DiffX { get; set; }
         }
 
         #endregion
@@ -44,7 +53,7 @@ namespace DroneWar
         /// <summary>
         /// Constructor.
         /// </summary>
-        public GameSpacePoint(int x, int y)
+        public GameSpacePoint(double x, double y)
         {
             X = x;
             Y = y;
@@ -53,7 +62,7 @@ namespace DroneWar
         /// <summary>
         /// Returns a clone of the game space point.
         /// </summary>
-        internal GameSpacePoint Clone()
+        public GameSpacePoint Clone()
         {
             var clone = new GameSpacePoint();
             clone.X = X;
@@ -70,8 +79,8 @@ namespace DroneWar
         public GameSpacePoint moveTowards(GameSpacePoint target, int distance)
         {
             // We find the distance to the other point...
-            var diffX = (double)(target.X - X);
-            var diffY = (double)(target.Y - Y);
+            var diffX = target.X - X;
+            var diffY = target.Y - Y;
             var diffXSquared = diffX * diffX;
             var diffYSquared = diffY * diffY;
             var distanceToOther = Math.Sqrt(diffXSquared + diffYSquared);
@@ -85,11 +94,8 @@ namespace DroneWar
             // We are moving the distance along the line...
             var newPoint = new GameSpacePoint();
             var ratio = distance / distanceToOther;
-            var oneMinusRatio = 1.0 - ratio;
-            newPoint.X = (int)(oneMinusRatio * X + ratio * target.X);
-            newPoint.Y = (int)(oneMinusRatio * Y + ratio * target.Y);
-            //newPoint.X = (int)(X + ratio * diffX);
-            //newPoint.Y = (int)(Y + ratio * diffY);
+            newPoint.X = X + ratio * diffX;
+            newPoint.Y = Y + ratio * diffY;
 
             return newPoint;
         }
@@ -101,7 +107,7 @@ namespace DroneWar
         /// <summary>
         /// Sets the X coordinate, constraining it to the game space.
         /// </summary>
-        private void setX(int value)
+        private void setX(double value)
         {
             m_x = value;
             if (m_x < 0) m_x = 0;
@@ -111,7 +117,7 @@ namespace DroneWar
         /// <summary>
         /// Sets the Y coordinate, constraining it to the game space.
         /// </summary>
-        private void setY(int value)
+        private void setY(double value)
         {
             m_y = value;
             if (m_y < 0) m_y = 0;
@@ -123,8 +129,8 @@ namespace DroneWar
         #region Private data
 
         // The x and y coordinates...
-        private int m_x = 0;
-        private int m_y = 0;
+        private double m_x = 0;
+        private double m_y = 0;
 
         #endregion
     }

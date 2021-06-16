@@ -104,8 +104,8 @@ namespace DroneWar
         /// </summary>
         private Point toScreenPoint(GameSpacePoint gameSpacePoint)
         {
-            var x = ((double)gameSpacePoint.X / Constants.SPACE_SIZE_X) * Width;
-            var y = ((double)gameSpacePoint.Y  / Constants.SPACE_SIZE_Y) * Height;
+            var x = (gameSpacePoint.X / Constants.SPACE_SIZE_X) * Width;
+            var y = (gameSpacePoint.Y  / Constants.SPACE_SIZE_Y) * Height;
             return new Point((int)x, (int)y);
         }
 

@@ -9,9 +9,9 @@
         public const int INITIAL_HEALTH = 100;
 
         // The size of the x-axis of the playing space...
-        public const int SPACE_SIZE_X = 1000000;
+        public const double SPACE_SIZE_X = 1000000.0;
 
         // The size of the y-axis of the playing space...
-        public const int SPACE_SIZE_Y = 1000000;
+        public const double SPACE_SIZE_Y = 1000000.0;
     }
 }
