@@ -60,6 +60,11 @@ namespace DroneWar
             public double DiffYSquared { get; set; }
 
             /// <summary>
+            /// Gets or sets the square of the distance between the two points.
+            /// </summary>
+            public double DistanceSquared { get; set; }
+
+            /// <summary>
             /// Gets or sets the distance between the two points.
             /// </summary>
             public double Distance { get; set; }
@@ -106,7 +111,8 @@ namespace DroneWar
             distanceInfo.DiffY = other.Y - Y;
             distanceInfo.DiffXSquared = distanceInfo.DiffX * distanceInfo.DiffX;
             distanceInfo.DiffYSquared = distanceInfo.DiffY * distanceInfo.DiffY;
-            distanceInfo.Distance = Math.Sqrt(distanceInfo.DiffXSquared + distanceInfo.DiffYSquared);
+            distanceInfo.DistanceSquared = distanceInfo.DiffXSquared + distanceInfo.DiffYSquared;
+            distanceInfo.Distance = Math.Sqrt(distanceInfo.DistanceSquared);
             return distanceInfo;
 
         }

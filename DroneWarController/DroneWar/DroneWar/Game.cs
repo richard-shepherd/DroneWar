@@ -22,6 +22,11 @@ namespace DroneWar
         /// </summary>
         public GameState GameState => m_gameState;
 
+        /// <summary>
+        /// Gets performance stats.
+        /// </summary>
+        public PerformanceStats PerformanceStats { get; } = new PerformanceStats();
+
         #endregion
 
         #region Public methods
@@ -45,6 +50,7 @@ namespace DroneWar
         public void playOneTurn()
         {
             moveDrones();
+            PerformanceStats.onTurnCompleted();
         }
 
         #endregion
@@ -146,9 +152,9 @@ namespace DroneWar
             {
                 // AI 0 starts on the left...
                 case 0:
-                    minX = 0;
+                    minX = 0.0;
                     maxX = Constants.SPACE_SIZE_X / 10.0;
-                    minY = 0;
+                    minY = 0.0;
                     maxY = Constants.SPACE_SIZE_Y;
                     break;
 
@@ -156,7 +162,23 @@ namespace DroneWar
                 case 1:
                     minX = Constants.SPACE_SIZE_X - Constants.SPACE_SIZE_X / 10.0;
                     maxX = Constants.SPACE_SIZE_X;
-                    minY = 0;
+                    minY = 0.0;
+                    maxY = Constants.SPACE_SIZE_Y;
+                    break;
+
+                // AI 2 starts on at the top...
+                case 2:
+                    minX = 0.0;
+                    maxX = Constants.SPACE_SIZE_X;
+                    minY = 0.0;
+                    maxY = Constants.SPACE_SIZE_Y / 10.0;
+                    break;
+
+                // AI 3 starts at the bottom...
+                case 3:
+                    minX = 0.0;
+                    maxX = Constants.SPACE_SIZE_X;
+                    minY = Constants.SPACE_SIZE_Y - Constants.SPACE_SIZE_Y / 10.0;
                     maxY = Constants.SPACE_SIZE_Y;
                     break;
 

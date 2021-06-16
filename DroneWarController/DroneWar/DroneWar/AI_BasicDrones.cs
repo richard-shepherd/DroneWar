@@ -75,7 +75,7 @@ namespace DroneWar
             --m_offsetCount;
             if (m_offsetCount <= 0)
             {
-                var offsetAmount = m_rnd.Next(0, 100000);
+                var offsetAmount = m_rnd.Next(0, 30000);
 
                 for (var i = 0; i <numDrones; ++i)
                 {

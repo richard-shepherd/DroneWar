@@ -51,7 +51,9 @@ namespace DroneWar
                 var swarmAIs = new List<ISwarmAI>();
                 swarmAIs.Add(new AI_BasicDrones());
                 swarmAIs.Add(new AI_BasicDrones());
-                m_game = new Game(swarmAIs, 500);
+                //swarmAIs.Add(new AI_BasicDrones());
+                //swarmAIs.Add(new AI_BasicDrones());
+                m_game = new Game(swarmAIs, 1000);
 
                 // We set up the game-space to show the swarms, and show the 
                 // intial game state...
@@ -81,6 +83,7 @@ namespace DroneWar
                 // For the moment, this is running the game loop...
                 m_game.playOneTurn();
                 ctrlGameSpace.show();
+                ctrlTurnsPlayed.Text = $"{m_game.PerformanceStats.TurnsPerSecond:0}";
             }
             catch(Exception ex)
             {
