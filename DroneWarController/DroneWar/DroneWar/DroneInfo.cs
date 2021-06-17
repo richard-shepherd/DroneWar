@@ -10,6 +10,11 @@ namespace DroneWar
         #region Properties
 
         /// <summary>
+        /// Gets whether the drone is dead.
+        /// </summary>
+        public bool IsDead => (Health <= 0);
+
+        /// <summary>
         /// Gets or sets the initial speed of the drone, at the time it was created.
         /// </summary>
         public int InitialSpeed { get; set; } = 0;

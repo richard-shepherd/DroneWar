@@ -58,5 +58,18 @@ namespace DroneWar
         /// this turn. See comments on the MovementRequest class for more details.
         /// </remarks>
         public List<MovementRequest> moveDrones(GameState gameState, int swarmIndex);
+
+        /// <summary>
+        /// Called after the movement phase to allow you to attack opponents.
+        /// </summary><remarks>
+        /// You are passed:
+        /// - The complete game state, including information about your drones and
+        ///   all other players' drones.
+        /// - The index of your swarm in the game-state's SwarmInfos list.
+        /// 
+        /// You return an AttackRequest for each drone which you want to attack an opponent.
+        /// See AttackRequest for more details.
+        /// </remarks>
+        public List<AttackRequest> attack(GameState gameState, int swarmIndex);
     }
 }

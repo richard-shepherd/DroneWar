@@ -84,6 +84,33 @@ namespace DroneWar
         }
 
         /// <summary>
+        /// Plays the attack phase and updates the health of the drones.
+        /// </summary>
+        private void playAttackPhase()
+        {
+            // We get requested movements from each AI...
+            var movementRequestsPerIndex = new Dictionary<int, List<MovementRequest>>();
+            var numAIs = m_swarmAIs.Count;
+            for (var aiIndex = 0; aiIndex < numAIs; ++aiIndex)
+            {
+                var swarmAI = m_swarmAIs[aiIndex];
+                movementRequestsPerIndex[aiIndex] = swarmAI.moveDrones(m_gameState, aiIndex);
+            }
+
+            // We apply the movements to the drones. 
+            // Note: This is done as a separate phase so that the same game state is passed
+            //       to each AI above.
+            foreach (var pair in movementRequestsPerIndex)
+            {
+                var aiIndex = pair.Key;
+                var movementRequests = pair.Value;
+                var drones = m_gameState.SwarmInfos[aiIndex].DroneInfos;
+                applyRequestedMovements(movementRequests, drones);
+            }
+
+        }
+
+        /// <summary>
         /// Applies the requested movements to the drones.
         /// </summary>
         private void applyRequestedMovements(List<MovementRequest> movementRequests, List<DroneInfo> drones)
