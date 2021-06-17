@@ -110,8 +110,10 @@ namespace DroneWar
             var numDrones = ourDrones.Count;
             for (var droneIndex = 0; droneIndex < numDrones; ++droneIndex)
             {
-                // We attack our enemy...
+                // We find the enemy drone...
                 var enemyDrone = getEnemyDrone(enemySwarm, droneIndex);
+
+                // We attack the enemy...
                 var attackRequest = new AttackRequest();
                 attackRequest.AttackingDroneIndex = droneIndex;
                 attackRequest.TargetDroneIndex = enemyDrone.DroneIndex;
@@ -135,15 +137,18 @@ namespace DroneWar
             // we always target the 'next' swarm...
             var swarmInfos = gameState.SwarmInfos;
             var enemyIndex = ourSwarmIndex + 1;
-            if (enemyIndex >= swarmInfos.Count)
+            if (enemyIndex >= swarmInfos.Count) enemyIndex = 0;
+
+            // We make sure the enemy has alive drones...
+            while(swarmInfos[enemyIndex].NumberAliveDrones == 0)
             {
-                enemyIndex = 0;
+                enemyIndex++;
+                if (enemyIndex >= swarmInfos.Count) enemyIndex = 0;
             }
-            var enemySwarm = swarmInfos[enemyIndex];
 
             return new EnemySwarm
             {
-                SwarmInfo = enemySwarm,
+                SwarmInfo = swarmInfos[enemyIndex],
                 SwarmIndex = enemyIndex
             };
         }

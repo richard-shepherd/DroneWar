@@ -32,6 +32,11 @@ namespace DroneWar
         /// </summary>
         public bool GameOver { get; set; } = false;
 
+        /// <summary>
+        /// Gets the maximum number of drones per AI for this game.
+        /// </summary>
+        public int MaxDrones => m_maxDrones;
+
         #endregion
 
         #region Public methods
@@ -75,7 +80,7 @@ namespace DroneWar
         /// </summary>
         private void checkForGameOver()
         {
-            GameOver = m_gameState.SwarmInfos.Any(x => x.DroneInfos.Count(d => !d.IsDead) == 0);
+            GameOver = m_gameState.SwarmInfos.Count(x => x.NumberAliveDrones > 0) <= 1;
         }
 
         /// <summary>
@@ -159,6 +164,10 @@ namespace DroneWar
                 // We find the attacking drone...
                 var attackingSwarm = m_gameState.SwarmInfos[aiIndex];
                 var attackingDrone = attackingSwarm.DroneInfos[attackRequest.AttackingDroneIndex];
+                if(attackingDrone.IsDead)
+                {
+                    continue;
+                }
 
                 // We find the target drone...
                 var targetSwarm = m_gameState.SwarmInfos[attackRequest.TargetSwarmIndex];

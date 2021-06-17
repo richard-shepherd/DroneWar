@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 namespace DroneWar
 {
@@ -24,6 +25,11 @@ namespace DroneWar
         /// Gets info for each drone in the swarm.
         /// </summary>
         public List<DroneInfo> DroneInfos { get; set; } = new List<DroneInfo>();
+
+        /// <summary>
+        /// Gets the number of alive drones in the swarm.
+        /// </summary>
+        public int NumberAliveDrones => DroneInfos.Count(x => x.IsAlive);
 
         #endregion
     }

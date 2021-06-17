@@ -15,6 +15,11 @@ namespace DroneWar
         public bool IsDead => (Health <= 0.0);
 
         /// <summary>
+        /// Gets whether the drone is alive.
+        /// </summary>
+        public bool IsAlive => (Health > 0.0);
+
+        /// <summary>
         /// Gets or sets the initial speed of the drone, at the time it was created.
         /// </summary>
         public int InitialSpeed { get; set; } = 0;

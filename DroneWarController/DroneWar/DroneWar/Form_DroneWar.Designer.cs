@@ -49,7 +49,7 @@ namespace DroneWar
             this.ctrlGroupBox_Logs.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ctrlGroupBox_Logs.Controls.Add(this.ctrlLogs);
-            this.ctrlGroupBox_Logs.Location = new System.Drawing.Point(12, 1156);
+            this.ctrlGroupBox_Logs.Location = new System.Drawing.Point(12, 1494);
             this.ctrlGroupBox_Logs.Name = "ctrlGroupBox_Logs";
             this.ctrlGroupBox_Logs.Size = new System.Drawing.Size(2316, 357);
             this.ctrlGroupBox_Logs.TabIndex = 0;
@@ -76,7 +76,7 @@ namespace DroneWar
             this.ctrlGroupBox_Space.Controls.Add(this.ctrlGameSpace);
             this.ctrlGroupBox_Space.Location = new System.Drawing.Point(15, 12);
             this.ctrlGroupBox_Space.Name = "ctrlGroupBox_Space";
-            this.ctrlGroupBox_Space.Size = new System.Drawing.Size(1694, 1143);
+            this.ctrlGroupBox_Space.Size = new System.Drawing.Size(1694, 1481);
             this.ctrlGroupBox_Space.TabIndex = 1;
             this.ctrlGroupBox_Space.TabStop = false;
             this.ctrlGroupBox_Space.Text = "Space";
@@ -86,7 +86,7 @@ namespace DroneWar
             this.ctrlGameSpace.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ctrlGameSpace.Location = new System.Drawing.Point(3, 43);
             this.ctrlGameSpace.Name = "ctrlGameSpace";
-            this.ctrlGameSpace.Size = new System.Drawing.Size(1688, 1097);
+            this.ctrlGameSpace.Size = new System.Drawing.Size(1688, 1435);
             this.ctrlGameSpace.TabIndex = 0;
             // 
             // ctrlStartGame
@@ -139,7 +139,7 @@ namespace DroneWar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 41F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2340, 1525);
+            this.ClientSize = new System.Drawing.Size(2340, 1863);
             this.Controls.Add(this.ctrlDronesInPlay);
             this.Controls.Add(this.ctrlTurnsPlayed);
             this.Controls.Add(this.lblTurnsPerSecond);
