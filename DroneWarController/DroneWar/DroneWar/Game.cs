@@ -27,6 +27,11 @@ namespace DroneWar
         /// </summary>
         public PerformanceStats PerformanceStats { get; } = new PerformanceStats();
 
+        /// <summary>
+        /// Gets or sets whether the game is over.
+        /// </summary>
+        public bool GameOver { get; set; } = false;
+
         #endregion
 
         #region Public methods
@@ -49,22 +54,29 @@ namespace DroneWar
         /// </summary>
         public void playOneTurn()
         {
-            // We request movements from AIs and apply them...
+            if(GameOver)
+            {
+                return;
+            }
+
             moveDrones();
-
-            // We request attacking actions from AIs and apply them...
             playAttackPhase();
-
-            // We recharge lasers...
             rechargeLasers();
-
-            // We update stats...
+            checkForGameOver();
             PerformanceStats.onTurnCompleted();
         }
 
         #endregion
 
         #region Private functions
+
+        /// <summary>
+        /// Checks if the game is over.
+        /// </summary>
+        private void checkForGameOver()
+        {
+            GameOver = m_gameState.SwarmInfos.Any(x => x.DroneInfos.Count(d => !d.IsDead) == 0);
+        }
 
         /// <summary>
         /// Recharges each drone's laser by 1%.

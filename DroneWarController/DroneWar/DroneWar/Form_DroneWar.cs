@@ -52,9 +52,9 @@ namespace DroneWar
                 var swarmAIs = new List<ISwarmAI>();
                 swarmAIs.Add(new AI_BasicDrones());
                 swarmAIs.Add(new AI_BasicDrones());
-                //swarmAIs.Add(new AI_BasicDrones());
-                //swarmAIs.Add(new AI_BasicDrones());
-                m_game = new Game(swarmAIs, 1000);
+                swarmAIs.Add(new AI_BasicDrones());
+                swarmAIs.Add(new AI_BasicDrones());
+                m_game = new Game(swarmAIs, 200);
 
                 // We set up the game-space to show the swarms, and show the 
                 // intial game state...
@@ -86,8 +86,8 @@ namespace DroneWar
                 ctrlGameSpace.show();
                 ctrlTurnsPlayed.Text = $"{m_game.PerformanceStats.TurnsPerSecond:0}";
                 var dronesInPlay = m_game.GameState.SwarmInfos
-                    .Select(x => x.DroneInfos.Count(d => !d.IsDead));
-                ctrlDronesInPlay.Text = String.Join(", ", dronesInPlay);
+                    .Select(x => $"{x.Color.Name}={x.DroneInfos.Count(d => !d.IsDead)}");
+                ctrlDronesInPlay.Text = String.Join(Environment.NewLine, dronesInPlay);
             }
             catch(Exception ex)
             {

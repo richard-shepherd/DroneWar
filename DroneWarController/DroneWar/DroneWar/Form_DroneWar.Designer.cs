@@ -39,7 +39,6 @@ namespace DroneWar
             this.ctrlGraphicsRefreshTimer = new System.Windows.Forms.Timer(this.components);
             this.lblTurnsPerSecond = new System.Windows.Forms.Label();
             this.ctrlTurnsPlayed = new System.Windows.Forms.Label();
-            this.lblDronesInPlay = new System.Windows.Forms.Label();
             this.ctrlDronesInPlay = new System.Windows.Forms.Label();
             this.ctrlGroupBox_Logs.SuspendLayout();
             this.ctrlGroupBox_Space.SuspendLayout();
@@ -127,22 +126,14 @@ namespace DroneWar
             this.ctrlTurnsPlayed.TabIndex = 4;
             this.ctrlTurnsPlayed.Text = "0";
             // 
-            // lblDronesInPlay
-            // 
-            this.lblDronesInPlay.AutoSize = true;
-            this.lblDronesInPlay.Location = new System.Drawing.Point(1755, 281);
-            this.lblDronesInPlay.Name = "lblDronesInPlay";
-            this.lblDronesInPlay.Size = new System.Drawing.Size(195, 41);
-            this.lblDronesInPlay.TabIndex = 5;
-            this.lblDronesInPlay.Text = "Drone in play";
-            // 
             // ctrlDronesInPlay
             // 
             this.ctrlDronesInPlay.AutoSize = true;
-            this.ctrlDronesInPlay.Location = new System.Drawing.Point(1974, 281);
+            this.ctrlDronesInPlay.Location = new System.Drawing.Point(1755, 281);
             this.ctrlDronesInPlay.Name = "ctrlDronesInPlay";
-            this.ctrlDronesInPlay.Size = new System.Drawing.Size(0, 41);
+            this.ctrlDronesInPlay.Size = new System.Drawing.Size(226, 41);
             this.ctrlDronesInPlay.TabIndex = 6;
+            this.ctrlDronesInPlay.Text = "(Drones in play)";
             // 
             // Form_DroneWar
             // 
@@ -150,7 +141,6 @@ namespace DroneWar
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2340, 1525);
             this.Controls.Add(this.ctrlDronesInPlay);
-            this.Controls.Add(this.lblDronesInPlay);
             this.Controls.Add(this.ctrlTurnsPlayed);
             this.Controls.Add(this.lblTurnsPerSecond);
             this.Controls.Add(this.ctrlStartGame);
@@ -177,7 +167,6 @@ namespace DroneWar
         private System.Windows.Forms.Timer ctrlGraphicsRefreshTimer;
         private System.Windows.Forms.Label lblTurnsPerSecond;
         private System.Windows.Forms.Label ctrlTurnsPlayed;
-        private System.Windows.Forms.Label lblDronesInPlay;
         private System.Windows.Forms.Label ctrlDronesInPlay;
     }
 }

@@ -95,7 +95,7 @@ namespace DroneWar
                 if (droneInfo.IsDead) continue;
 
                 var screenPosition = toScreenPoint(droneInfo.Position);
-                var droneStrength = droneInfo.Health + droneInfo.Shields;
+                var droneStrength = 100.0 + droneInfo.Shields;
                 var size = (int)(droneStrength / 20.0);
                 var offset = size / 2;
                 graphics.FillEllipse(brush, screenPosition.X-offset, screenPosition.Y-offset, size, size);
