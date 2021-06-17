@@ -49,13 +49,40 @@ namespace DroneWar
         /// </summary>
         public void playOneTurn()
         {
+            // We request movements from AIs and apply them...
             moveDrones();
+
+            // We request attacking actions from AIs and apply them...
+            playAttackPhase();
+
+            // We recharge lasers...
+            rechargeLasers();
+
+            // We update stats...
             PerformanceStats.onTurnCompleted();
         }
 
         #endregion
 
         #region Private functions
+
+        /// <summary>
+        /// Recharges each drone's laser by 1%.
+        /// </summary>
+        private void rechargeLasers()
+        {
+            foreach(var swarmInfo in m_gameState.SwarmInfos)
+            {
+                foreach(var droneInfo in swarmInfo.DroneInfos)
+                {
+                    droneInfo.LaserStrength += (droneInfo.InitialLaserStrength / 100.0);
+                    if(droneInfo.LaserStrength > droneInfo.InitialLaserStrength)
+                    {
+                        droneInfo.LaserStrength = droneInfo.InitialLaserStrength;
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// Requests movements from each AI and applies them to the drones.
@@ -78,8 +105,7 @@ namespace DroneWar
             {
                 var aiIndex = pair.Key;
                 var movementRequests = pair.Value;
-                var drones = m_gameState.SwarmInfos[aiIndex].DroneInfos;
-                applyRequestedMovements(movementRequests, drones);
+                applyRequestedMovements(movementRequests, aiIndex);
             }
         }
 
@@ -88,39 +114,81 @@ namespace DroneWar
         /// </summary>
         private void playAttackPhase()
         {
-            // We get requested movements from each AI...
-            var movementRequestsPerIndex = new Dictionary<int, List<MovementRequest>>();
+            // We get requested attacks from each AI...
+            var attackRequestsPerIndex = new Dictionary<int, List<AttackRequest>>();
             var numAIs = m_swarmAIs.Count;
             for (var aiIndex = 0; aiIndex < numAIs; ++aiIndex)
             {
                 var swarmAI = m_swarmAIs[aiIndex];
-                movementRequestsPerIndex[aiIndex] = swarmAI.moveDrones(m_gameState, aiIndex);
+                attackRequestsPerIndex[aiIndex] = swarmAI.attack(m_gameState, aiIndex);
             }
 
-            // We apply the movements to the drones. 
+            // We make the attacks. 
             // Note: This is done as a separate phase so that the same game state is passed
             //       to each AI above.
-            foreach (var pair in movementRequestsPerIndex)
+            foreach (var pair in attackRequestsPerIndex)
             {
                 var aiIndex = pair.Key;
-                var movementRequests = pair.Value;
-                var drones = m_gameState.SwarmInfos[aiIndex].DroneInfos;
-                applyRequestedMovements(movementRequests, drones);
+                var attackRequests = pair.Value;
+                applyRequestedAttacks(attackRequests, aiIndex);
             }
-
         }
 
         /// <summary>
-        /// Applies the requested movements to the drones.
+        /// Applies the requested attacking actions from the drones whose Ai index is passed in.
         /// </summary>
-        private void applyRequestedMovements(List<MovementRequest> movementRequests, List<DroneInfo> drones)
+        private void applyRequestedAttacks(List<AttackRequest> attackRequests, int aiIndex)
+        {
+            // TODO: Validate attack requests
+
+            var drones = m_gameState.SwarmInfos[aiIndex].DroneInfos;
+            foreach(var attackRequest in attackRequests)
+            {
+                // We find the attacking drone...
+                var attackingSwarm = m_gameState.SwarmInfos[aiIndex];
+                var attackingDrone = attackingSwarm.DroneInfos[attackRequest.AttackingDroneIndex];
+
+                // We find the target drone...
+                var targetSwarm = m_gameState.SwarmInfos[attackRequest.TargetSwarmIndex];
+                var targetDrone = targetSwarm.DroneInfos[attackRequest.TargetDroneIndex];
+
+                // The attack force decreases with distance, so we find the distance between 
+                // the drones. Drones have to be relatively close before attacks have any effect.
+                var distanceInfo = attackingDrone.Position.distanceTo(targetDrone.Position);
+                if(distanceInfo.Distance > Constants.MINIMUM_DISTANCE_FOR_ATTACKS)
+                {
+                    continue;
+                }
+                var damageMultiplier = 1.0 - distanceInfo.Distance / Constants.MINIMUM_DISTANCE_FOR_ATTACKS;
+                var damage = attackingDrone.LaserStrength * damageMultiplier * 0.1;
+
+                // The target drone first takes damage to its shields. If there are no shields
+                // left, rememining damage is taken from its health...
+                targetDrone.Shields -= damage;
+                if(targetDrone.Shields < 0.0)
+                {
+                    targetDrone.Health += targetDrone.Shields;
+                    targetDrone.Shields = 0.0;
+                }
+
+                // We reset the attacking drone's laser strength to zero. It will recharge
+                // over time...
+                attackingDrone.LaserStrength = 0.0;
+            }
+        }
+
+        /// <summary>
+        /// Applies the requested movements to the drones from the swarm whose index is passed in.
+        /// </summary>
+        private void applyRequestedMovements(List<MovementRequest> movementRequests, int aiIndex)
         {
             // TODO: Validate the movement requests
             // eg, make sure that the same drone is not specified multiple times
-            foreach(var movementRequest in movementRequests)
+            var drones = m_gameState.SwarmInfos[aiIndex].DroneInfos;
+            foreach (var movementRequest in movementRequests)
             {
                 var drone = drones[movementRequest.DroneIndex];
-                var speed = drone.Speed * 50;
+                var speed = drone.Speed * 50.0;
                 drone.Position = drone.Position.moveTowards(movementRequest.Target, speed);
             }
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace DroneWar
@@ -84,6 +85,9 @@ namespace DroneWar
                 m_game.playOneTurn();
                 ctrlGameSpace.show();
                 ctrlTurnsPlayed.Text = $"{m_game.PerformanceStats.TurnsPerSecond:0}";
+                var dronesInPlay = m_game.GameState.SwarmInfos
+                    .Select(x => x.DroneInfos.Count(d => !d.IsDead));
+                ctrlDronesInPlay.Text = String.Join(", ", dronesInPlay);
             }
             catch(Exception ex)
             {

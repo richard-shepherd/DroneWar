@@ -92,8 +92,11 @@ namespace DroneWar
             var brush = new SolidBrush(swarmInfo.Color);
             foreach(var droneInfo in swarmInfo.DroneInfos)
             {
+                if (droneInfo.IsDead) continue;
+
                 var screenPosition = toScreenPoint(droneInfo.Position);
-                var size = droneInfo.Shields / 10;
+                var droneStrength = droneInfo.Health + droneInfo.Shields;
+                var size = (int)(droneStrength / 20.0);
                 var offset = size / 2;
                 graphics.FillEllipse(brush, screenPosition.X-offset, screenPosition.Y-offset, size, size);
             }

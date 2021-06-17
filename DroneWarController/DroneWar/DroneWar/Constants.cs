@@ -13,5 +13,9 @@
 
         // The size of the y-axis of the playing space...
         public const double SPACE_SIZE_Y = 1000000.0;
+
+        // Attacks have no effect if they are made from further away
+        // than this fraction of the space-width...
+        public const double MINIMUM_DISTANCE_FOR_ATTACKS = 0.2 * SPACE_SIZE_X;
     }
 }

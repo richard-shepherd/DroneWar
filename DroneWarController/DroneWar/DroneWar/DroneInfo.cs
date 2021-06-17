@@ -12,7 +12,7 @@ namespace DroneWar
         /// <summary>
         /// Gets whether the drone is dead.
         /// </summary>
-        public bool IsDead => (Health <= 0);
+        public bool IsDead => (Health <= 0.0);
 
         /// <summary>
         /// Gets or sets the initial speed of the drone, at the time it was created.
@@ -37,22 +37,22 @@ namespace DroneWar
         /// <summary>
         /// Gets or sets the current speed of the drone.
         /// </summary>
-        public int Speed { get; set; } = 0;
+        public double Speed { get; set; } = 0.0;
 
         /// <summary>
         /// Gets or sets the current health of the drone.
         /// </summary>
-        public int Health { get; set; } = 0;
+        public double Health { get; set; } = 0.0;
 
         /// <summary>
         /// Gets or sets the current shields of the drone.
         /// </summary>
-        public int Shields { get; set; } = 0;
+        public double Shields { get; set; } = 0.0;
 
         /// <summary>
         /// Gets or sets the current laser strength of the drone.
         /// </summary>
-        public int LaserStrength { get; set; } = 0;
+        public double LaserStrength { get; set; } = 0.0;
 
         /// <summary>
         /// Gets the position of the drone in game-space.

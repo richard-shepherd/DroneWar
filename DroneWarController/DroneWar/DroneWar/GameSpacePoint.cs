@@ -123,7 +123,7 @@ namespace DroneWar
         /// 
         /// If the distance would take us past the target point, then the target point is returned.
         /// </summary>
-        public GameSpacePoint moveTowards(GameSpacePoint target, int distanceToMove)
+        public GameSpacePoint moveTowards(GameSpacePoint target, double distanceToMove)
         {
             // We find the distance to the other point...
             var distanceToTarget = distanceTo(target);
