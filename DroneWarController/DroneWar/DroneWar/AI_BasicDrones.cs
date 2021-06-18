@@ -77,7 +77,7 @@ namespace DroneWar
             for (var droneIndex=0; droneIndex<numDrones; ++droneIndex)
             {
                 // We move towards the enemy...
-                var enemyDrone = getEnemyDrone(enemySwarm, droneIndex);
+                var enemyDrone = getEnemyDrone(enemySwarm, ourSwarmIndex, droneIndex);
                 var movementRequest = new MovementRequest();
                 movementRequest.DroneIndex = droneIndex;
                 movementRequest.Target = enemyDrone.DroneInfo.Position.Clone();
@@ -111,7 +111,7 @@ namespace DroneWar
             for (var droneIndex = 0; droneIndex < numDrones; ++droneIndex)
             {
                 // We find the enemy drone...
-                var enemyDrone = getEnemyDrone(enemySwarm, droneIndex);
+                var enemyDrone = getEnemyDrone(enemySwarm, ourSwarmIndex, droneIndex);
 
                 // We attack the enemy...
                 var attackRequest = new AttackRequest();
@@ -156,7 +156,7 @@ namespace DroneWar
         /// <summary>
         /// Gets the enemy drone-info targeted by one of our drones.
         /// </summary>
-        private EnemyDrone getEnemyDrone(EnemySwarm enemySwarm, int ourDroneIndex)
+        private EnemyDrone getEnemyDrone(EnemySwarm enemySwarm, int ourSwarmIndex, int ourDroneIndex)
         {
             var enemyDrones = enemySwarm.SwarmInfo.DroneInfos;
             var numEnemyDrones = enemyDrones.Count;

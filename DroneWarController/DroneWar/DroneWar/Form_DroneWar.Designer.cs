@@ -30,7 +30,6 @@ namespace DroneWar
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_DroneWar));
             this.ctrlGroupBox_Logs = new System.Windows.Forms.GroupBox();
             this.ctrlLogs = new System.Windows.Forms.ListBox();
             this.ctrlGroupBox_Space = new System.Windows.Forms.GroupBox();
@@ -84,6 +83,7 @@ namespace DroneWar
             // ctrlGameSpace
             // 
             this.ctrlGameSpace.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ctrlGameSpace.Game = null;
             this.ctrlGameSpace.Location = new System.Drawing.Point(3, 43);
             this.ctrlGameSpace.Name = "ctrlGameSpace";
             this.ctrlGameSpace.Size = new System.Drawing.Size(1688, 1435);
@@ -128,6 +128,7 @@ namespace DroneWar
             // 
             // ctrlDronesInPlay
             // 
+            this.ctrlDronesInPlay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ctrlDronesInPlay.AutoSize = true;
             this.ctrlDronesInPlay.Location = new System.Drawing.Point(1755, 281);
             this.ctrlDronesInPlay.Name = "ctrlDronesInPlay";
