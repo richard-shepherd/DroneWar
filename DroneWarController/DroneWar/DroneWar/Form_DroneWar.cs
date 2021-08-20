@@ -53,8 +53,8 @@ namespace DroneWar
                 swarmAIs.Add(new AI_BasicDrones());
                 swarmAIs.Add(new AI_BasicDrones());
                 swarmAIs.Add(new AI_BasicDrones());
-                swarmAIs.Add(new AI_BasicDrones());
-                m_game = new Game(swarmAIs, 100);
+                //swarmAIs.Add(new AI_BasicDrones());
+                m_game = new Game(swarmAIs, 500);
 
                 // We set up the game-space to show the swarms, and show the 
                 // intial game state...
